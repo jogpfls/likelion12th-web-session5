@@ -1,14 +1,19 @@
 import React from 'react';
-import Header from './pages/Header.js'
-import Lank from './pages/Lank.js';
-import Footer from './pages/Footer.js';
+import { Route, Routes } from 'react-router-dom';
+import Main from './pages/Main.js';
+import Detail from './pages/Detail.js';
+import NotFound from './pages/NotFound.js';
+import Header from '../src/components/Header.js'
 
 function App() {
   return (
     <>
     <Header />
-    <Lank />
-    <Footer />
+    <Routes>
+      <Route path='/' element={<Main />}></Route>
+      <Route path='/Detail/:rank' element={<Detail />}></Route>
+      <Route path='/*' element={<NotFound />}></Route>
+    </Routes>
     </>
   );
 }

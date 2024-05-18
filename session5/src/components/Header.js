@@ -2,44 +2,42 @@ import React from "react";
 import styled from "styled-components";
 import WatchaImg from "../assets/image/icon_logo.png";
 import Login from "./Login";
+import { Link } from "react-router-dom";
 
 function Header() {
     return (
-        <HeaderPart>
-            <HeaderWrapper>
-                <HeaderStart>
-                    <LogoImage src={WatchaImg} alt="왓챠 이미지"></LogoImage>
-                    <Text >영화</Text>
-                    <Text>시리즈</Text>
-                    <Text>책</Text>
-                    <Text>웹툰</Text>
-                </HeaderStart>
-                <HeaderEnd>
-                <LoginButton><Login /></LoginButton>
-                    <Join>회원가입</Join>
-                </HeaderEnd>
-            </HeaderWrapper>
-        </HeaderPart>
+        <HeaderWrapper>
+            <HeaderStart>
+                <Link to="/"><LogoImage src={WatchaImg} alt="왓챠 이미지"></LogoImage></Link>
+                <Link to><Text >영화</Text></Link>
+                <Text>시리즈</Text>
+                <Text>책</Text>
+                <Text>웹툰</Text>
+            </HeaderStart>
+            <HeaderEnd>
+                <FindBox type="text" placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."></FindBox>
+            <LoginButton><Login /></LoginButton>
+                <Join>회원가입</Join>
+            </HeaderEnd>
+        </HeaderWrapper>
     );
 }
 
-const HeaderPart = styled.div`
+const HeaderWrapper = styled.div`
     top: 0;
     position: fixed;
     width: 100%;
-    box-shadow: 0 0 1px #000;
-    z-index: 20;
-`;
-
-const HeaderWrapper = styled.div`
+    height: 62px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 0px 0px;
+    z-index: 51;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 9px 3%;
+    padding: 0 5%;
 `;
 
 const HeaderStart = styled.div`
-    width: 45%;
+    width: 390px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -49,6 +47,7 @@ const HeaderStart = styled.div`
 const LogoImage = styled.img`
     width: 150px;
     height: fit-content;
+    cursor: pointer;
 `;
 
 const Text = styled.p`
@@ -59,11 +58,24 @@ const Text = styled.p`
 
 
 const HeaderEnd = styled.div`
-    width: 20%;
+    width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0;
+`;
+
+const FindBox = styled.input`
+    height: 40px;
+    width: 250px;
+    border-radius: 3px;
+    background-color: #f5f5f5;
+    border:1px ;
+    ::placeholder{
+        font-size: 13px;
+    }
+
+;
 `;
 
 const Join = styled.button`
