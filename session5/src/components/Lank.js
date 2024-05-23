@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom"; 
-//import {DATA} from "../assets/Data";
 
 function Lank() {
     const [movies, setMovies] = useState([]);
@@ -11,12 +10,12 @@ function Lank() {
             try {
                 const response = await fetch("https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1", {
                     headers: {
-                        Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MTAyZjYyZTM3MzM3OWM2MGFlMzk0YWMyMGE3YjI4MiIsInN1YiI6IjY2NDE3OWJlYWMwZDQ2MDMxYjM3MWUwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.roJ6ZAmjKkHix91jrFoFlFHw2LNQRYTAhmBegI8fzQE"
+                        Authorization: `Bearer ` + process.env.REACT_APP_API_KEY
                     }
                 });
                 const data = await response.json();
-                console.log("movie_data: ", data);
                 setMovies(data.results);
+                console.log("Lank_data: ", data);
             } catch (error) {
                 console.error("Failed to fetch movies", error);
             }
@@ -24,7 +23,6 @@ function Lank() {
             
         fetchMovies();
     }, []);
-    console.log("movies: ", movies);
 
     return (
         <Lanking>
@@ -32,7 +30,7 @@ function Lank() {
             <Movie>
                 {movies.map((movie) => (
                     <Info key={movie.id}>
-                        <Link to={`/detail/${movie.id}`}><MovieImage src={`https://image.tmdb.org/t/p/w500` + movie.poster_path} alt={movie.title} /></Link>
+                        <Link to={`/Detail/${movie.id}`}><MovieImage src={`https://image.tmdb.org/t/p/w500` + movie.poster_path} alt={movie.title} /></Link>
                         <Title>{movie.title}</Title>
                         <YearCountry>{movie.release_date.split("-")[0]} · {movie.original_language.toUpperCase()}</YearCountry>
                         <PercentAudience>평점 {movie.vote_average} · 투표 수 {movie.vote_count}</PercentAudience>
