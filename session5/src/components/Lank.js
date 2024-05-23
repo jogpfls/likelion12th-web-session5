@@ -15,7 +15,7 @@ function Lank() {
                 });
                 const data = await response.json();
                 setMovies(data.results);
-                console.log("Lank_data: ", data);
+                
             } catch (error) {
                 console.error("Failed to fetch movies", error);
             }
