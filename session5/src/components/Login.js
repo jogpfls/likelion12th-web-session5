@@ -5,7 +5,7 @@ import kakaoImg from "../assets/image/icon_kakao.png";
 import googleImg from "../assets/image/icon_google.png";
 import lineImg from "../assets/image/icon_line.png";
 import twitterImg from "../assets/image/icon_twitter.png";
-import Modal from './Modal';
+import Modal from '../pages/Modal';
 
 
 const Login = () =>{
