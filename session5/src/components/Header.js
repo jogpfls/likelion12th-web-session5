@@ -9,7 +9,7 @@ function Header() {
         <HeaderWrapper>
             <HeaderStart>
                 <Link to="/"><LogoImage src={WatchaImg} alt="왓챠 이미지"></LogoImage></Link>
-                <Link to><Text >영화</Text></Link>
+                <Text >영화</Text>
                 <Text>시리즈</Text>
                 <Text>책</Text>
                 <Text>웹툰</Text>
@@ -34,6 +34,7 @@ const HeaderWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
+    background-color: white;
 `;
 
 const HeaderStart = styled.div`
@@ -46,7 +47,7 @@ const HeaderStart = styled.div`
 
 const LogoImage = styled.img`
     width: 150px;
-    height: fit-content;
+    height: 100%;
     cursor: pointer;
 `;
 

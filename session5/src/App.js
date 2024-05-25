@@ -11,7 +11,7 @@ function App() {
     <Header />
     <Routes>
       <Route path='/' element={<Main />}></Route>
-      <Route path='/Detail/:rank' element={<Detail />}></Route>
+      <Route path='/Detail/:movieId' element={<Detail />}></Route>
       <Route path='/*' element={<NotFound />}></Route>
     </Routes>
     </>
