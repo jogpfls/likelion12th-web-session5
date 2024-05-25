@@ -1,20 +1,41 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom"; 
-import {DATA} from "../assets/Data";
 
 function Lank() {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                const response = await fetch("https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1", {
+                    headers: {
+                        Authorization: `Bearer ` + process.env.REACT_APP_API_KEY
+                    }
+                });
+                const data = await response.json();
+                setMovies(data.results);
+                
+            } catch (error) {
+                console.error("Failed to fetch movies", error);
+            }
+        };
+            
+        fetchMovies();
+    }, []);
+
     return (
         <Lanking>
             <LankText>박스오피스 순위</LankText>
             <Movie>
-                {DATA.map((movie) => (
-                    <Info key={movie.rank}>
-                        <Link to={`/detail/${movie.rank}`}><MovieImage src={movie.img} alt={movie.title} /></Link>
+                {movies.map((movie) => (
+                    <Info key={movie.id}>
+                        <Link to={`/Detail/${movie.id}`}><MovieImage src={`https://image.tmdb.org/t/p/w500` + movie.poster_path} alt={movie.title} /></Link>
                         <Title>{movie.title}</Title>
-                        <YearCountry>{movie.year} · {movie.country}</YearCountry>
-                        <PercentAudience>예매율{movie.percent} · 누적 관객 {movie.audience}명</PercentAudience>
+                        <YearCountry>{movie.release_date.split("-")[0]} · {movie.original_language.toUpperCase()}</YearCountry>
+                        <PercentAudience>평점 {movie.vote_average} · 투표 수 {movie.vote_count}</PercentAudience>
                     </Info>
+                    
                 ))}
             </Movie>
         </Lanking>
@@ -23,13 +44,12 @@ function Lank() {
 
 
 const Movie = styled.div`
-    height: fit-content;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-between;
     overflow-x: auto;
     white-space: nowrap;
-    justify-content: flex-start;
+    padding-bottom: 100px;
+    padding-top: 20px;
     &::-webkit-scrollbar{
         display: none;
     }
@@ -48,8 +68,8 @@ const LankText = styled.p`
 `;
 
 const MovieImage = styled.img`
-    width: 250px;
-    height: fit-content;
+    width: 200px;
+    height: 100%;
     border-radius: 5px;
     cursor: pointer;
     margin: 0 10px;
