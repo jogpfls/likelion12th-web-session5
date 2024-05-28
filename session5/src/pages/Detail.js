@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import { darkMode } from '../Recoil/Atom';
 import Star from "../assets/image/Star.png";
 
 const Detail = () => {
@@ -8,11 +11,13 @@ const Detail = () => {
     const [movieInfo, setMovieInfo] = useState(null);
     const [genres, setGenres] = useState([]);
     const [country, setCountry] = useState("");
+    const isDarkMode = useRecoilValue(darkMode);
+    
 
     useEffect(() => {
         const fetchMovieInfo = async () => {
             try {
-                const response = await fetch(
+                const response = await axios.get(
                     `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR`, 
                     {
                         headers: {
@@ -21,7 +26,7 @@ const Detail = () => {
                         
                     }
                 );
-                const data = await response.json();
+                const data = response.data;
                 setMovieInfo(data);
 
                 if (data.genres) {
@@ -38,7 +43,6 @@ const Detail = () => {
         };
         fetchMovieInfo();
     }, [movieId]);
-    console.log('API Key:', process.env.REACT_APP_API_KEY);
     
     return (
         <Container>
@@ -52,12 +56,12 @@ const Detail = () => {
                                 <SmallTitle>{movieInfo.original_title}</SmallTitle>
                                 <YearGenreCountry>
                                     {movieInfo.release_date.slice(0, 4)} · {genres.map((genre, index) => (
-                                        <span key={index}>{genre} </span>
+                                        <Genre key={index}>{genre} </Genre>
                                     ))} · {country}
                                 </YearGenreCountry>
                             </TitleWrapper>
                         </Up>
-                        <Down>
+                        <Down isDarkMode={isDarkMode}>
                             <Q>
                                 <LeftWrapper>
                                     <PosterImg src={`https://image.tmdb.org/t/p/w500/${movieInfo.poster_path}`} alt={movieInfo.title} />
@@ -100,7 +104,8 @@ const Detail = () => {
     );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const Movie = styled.div``;
 
@@ -115,6 +120,7 @@ const TitleWrapper = styled.div`
     position: absolute;
     z-index: 2;
     margin: 0 60px;
+    background-color: transparent;
 `;
 
 const Image = styled.img`
@@ -133,6 +139,7 @@ const Title = styled.p`
     font-size: 36px;
     font-weight: 700;
     line-height: 36px;
+    background-color: transparent;
 `;
 
 const SmallTitle = styled.p`
@@ -140,12 +147,19 @@ const SmallTitle = styled.p`
     font-size: 14px;
     line-height: 18px;
     color: white;
+    background-color: transparent;
 `;
 
 const YearGenreCountry = styled.p`
     font-size: 14px;
     line-height: 18px;
     margin-top: 8px;
+    color: white;
+    background-color: transparent;
+`;
+
+const Genre = styled.span`
+    background-color: transparent;
     color: white;
 `;
 
@@ -157,7 +171,7 @@ const Q = styled.div`
 `;
 
 const Down = styled.div`
-    background-color: #F8F8F8;
+    background-color: ${({ isDarkMode }) => (isDarkMode ? '#121212' : '#F8F8F8')};;
 `;
 
 const LeftWrapper = styled.div`
