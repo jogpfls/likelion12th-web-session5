@@ -46,41 +46,48 @@ const FirstWrapper = styled.div`
     display: flex;
     justify-content: start;
     margin: 0;
+    background-color: black;
 `;
 
 const Use = styled.p`
     cursor: pointer;
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Personal = styled.p`
     cursor: pointer;
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Guide = styled.p`
     cursor: pointer;
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const SecondWrapper = styled.div`
     margin: 0;
     padding: 5px;
+    background-color: black;
 `;
 
 const Center = styled.p`
     cursor: pointer;
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Cooperation = styled.p`
     cursor: pointer;
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const ThirdWrapper = styled.div`
@@ -89,19 +96,23 @@ const ThirdWrapper = styled.div`
 const Company = styled.p`
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Number = styled.p`
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Watcha = styled.p`
     font-size: 12px;
     color: #8c8c8c;
+    background-color: black;
 `;
 
 const Right = styled.div`
+    background-color: black;
 `;
 
 const Language = styled.select`

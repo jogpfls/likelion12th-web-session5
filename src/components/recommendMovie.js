@@ -1,32 +1,24 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
+import { useRecoilValue } from "recoil";
+import { recSelector } from "../Recoil/Atom";
 import styled from "styled-components";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
-function Lank() {
-    const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await fetch("https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1", {
-                    headers: {
-                        Authorization: `Bearer ` + process.env.REACT_APP_API_KEY
-                    }
-                });
-                const data = await response.json();
-                setMovies(data.results);
-                
-            } catch (error) {
-                console.error("Failed to fetch movies", error);
-            }
-        };
-            
-        fetchMovies();
-    }, []);
+function RecommendMovie() {
+    const movies = useRecoilValue(recSelector);
+    const handleScroll = (e) => {
+        if (!window.scrollY) return;
+        // 현재 위치가 이미 최상단일 경우 return
+    
+        window.scrollTo({
+            op: 0,
+            behavior: 'smooth',
+        });
+    };
 
     return (
         <Lanking>
-            <LankText>박스오피스 순위</LankText>
+            <LankText onClick={handleScroll()}>추천작</LankText>
             <Movie>
                 {movies.map((movie) => (
                     <Info key={movie.id}>
@@ -65,6 +57,7 @@ const Lanking = styled.div`
 const LankText = styled.p`
     font-weight: bolder;
     font-size: 20px;
+    cursor: pointer;
 `;
 
 const MovieImage = styled.img`
@@ -97,4 +90,4 @@ const PercentAudience = styled.p`
     font-size: 12px;
 `;
 
-export default Lank;
+export default RecommendMovie;

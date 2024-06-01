@@ -3,16 +3,24 @@ import styled from "styled-components";
 import WatchaImg from "../assets/image/icon_logo.png";
 import Login from "./Login";
 import { Link } from "react-router-dom";
+import { useRecoilState } from 'recoil';
+import { darkMode } from '../Recoil/Atom';
 
 function Header() {
+    const [isDarkMode, setIsDarkMode] = useRecoilState(darkMode);
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+    };
     return (
-        <HeaderWrapper>
+        <HeaderWrapper isDarkMode = {isDarkMode}>
             <HeaderStart>
                 <Link to="/"><LogoImage src={WatchaImg} alt="왓챠 이미지"></LogoImage></Link>
                 <Text >영화</Text>
                 <Text>시리즈</Text>
                 <Text>책</Text>
                 <Text>웹툰</Text>
+                <Btn onClick={toggleDarkMode}>{isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'}</Btn>
             </HeaderStart>
             <HeaderEnd>
                 <FindBox type="text" placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."></FindBox>
@@ -34,7 +42,7 @@ const HeaderWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    background-color: white;
+    background-color: ${({ isDarkMode }) => (isDarkMode ? '#121212' : 'white')};
 `;
 
 const HeaderStart = styled.div`
@@ -55,6 +63,14 @@ const Text = styled.p`
     cursor: pointer;
     font-size: 13px;
     color: #8c8c8c;
+`;
+
+const Btn = styled.button`
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1px solid #8c8c8c;
+    padding: 3px 10px;
 `;
 
 
@@ -82,7 +98,6 @@ const FindBox = styled.input`
 const Join = styled.button`
     cursor: pointer;
     font-size: 12px;
-    background-color: #ffffff;
     border: 1px solid #8c8c8c;
     border-radius: 5px;
     font-weight: bold;
